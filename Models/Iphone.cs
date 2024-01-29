@@ -25,21 +25,29 @@ namespace DesafioPOO.Models
             bool loopApp = true;
             while (loopApp)
             {
-                Console.WriteLine("Digite o nome do Aplicativo que seja instalar:");
-                string aplicativo = Console.ReadLine();
-
-                if (ListaDeAplicativos.Any(x => x.ToUpper() == aplicativo.ToUpper()))
+                if (MemoriaAtual < 50)
                 {
-                    Console.WriteLine($"O aplicativo: '{aplicativo}' já está instalado no seu SmartPhone");
+                    Console.WriteLine("O Smartphone não possui memória suficiente, por favor desinstale algum aplicativo para liberar espaço");
+                    loopApp = false;
                 }
                 else
                 {
-                    ListaDeAplicativos.Add(aplicativo);
-                    Console.WriteLine($"{aplicativo} foi instalado");
-                    AtualizarLista();
-                    Bateria -= 0.01;
-                    MemoriaAtual -= 50;
-                    loopApp = false;
+                    Console.WriteLine("Digite o nome do Aplicativo que seja instalar:");
+                    string aplicativo = Console.ReadLine();
+
+                    if (ListaDeAplicativos.Any(x => x.ToUpper() == aplicativo.ToUpper()))
+                    {
+                        Console.WriteLine($"O aplicativo: '{aplicativo}' já está instalado no seu SmartPhone");
+                    }
+                    else
+                    {
+                        ListaDeAplicativos.Add(aplicativo);
+                        Console.WriteLine($"{aplicativo} foi instalado");
+                        AtualizarLista();
+                        Bateria -= 0.01;
+                        MemoriaAtual -= 50;
+                        loopApp = false;
+                    }
                 }
             }
         }
@@ -141,7 +149,7 @@ namespace DesafioPOO.Models
             return "";
         }
 
-        public override void OrdenarAplicativos()//tentei usar recurção para um menu mais interativo só que estava dando problema. Chama o metodo SubMenuAplicativo()
+        public override void OrdenarAplicativos()
         {
             //List<string> aplicativosEmOrdemAlfa = new List<string>();
 
@@ -158,7 +166,7 @@ namespace DesafioPOO.Models
             }
         }
 
-        public override void OrdenacaoPadrao()//tentei usar recurção para um menu mais interativo só que estava dando problema. Chama o metodo SubMenuAplicativo()
+        public override void OrdenacaoPadrao()
         {
             if (ListaAtualizada.Any())
             {
@@ -202,34 +210,54 @@ namespace DesafioPOO.Models
         {
             Stopwatch tempoEmChamada = new Stopwatch();
 
-            Console.WriteLine(
-            "Recebendo Ligação...\n" +
-            "1- Aceitar Chamada\n" +
-            "2- Recusar Chamada");
-
-            string opcaoChamada = Console.ReadLine();
-
-            while (opcaoChamada != "2")
+            bool loopChamada = true;
+            while (loopChamada)
             {
-                if (opcaoChamada == "1")
-                {
-                    Bateria -= 0.1;
-                    Console.WriteLine("Chamada em andamento...");
-                    tempoEmChamada.Start();
+                Console.Clear();
+                Console.WriteLine(
+                "Recebendo Ligação...\n" +
+                "1- Aceitar Chamada\n" +
+                "2- Recusar Chamada");
 
-                    Console.WriteLine("2- Encerrar Chamada");
-                    opcaoChamada = Console.ReadLine();
-                }
-                else
+                string opcaoChamada = Console.ReadLine();
+
+                switch (opcaoChamada)
                 {
-                    Console.WriteLine("Opção inválida. Digite 1 para Aceitar Chamada ou 2 para Recusar Chamada:");
-                    opcaoChamada = Console.ReadLine();
+                    case "1":
+                        Bateria -= 0.1;
+                        Console.WriteLine("Chamada em andamento...");
+                        tempoEmChamada.Start();
+
+                        Console.WriteLine("2- Encerrar Chamada");
+                        opcaoChamada = Console.ReadLine();
+
+                        if (opcaoChamada != "2")
+                        {
+                            while (opcaoChamada != "2")
+                            {
+                                Console.WriteLine("Opção inválida. Digite 2 para Encerrar Chamada:");
+                                opcaoChamada = Console.ReadLine();
+                            }
+                        }
+                        loopChamada = false;
+                        break;
+
+                    case "2":
+                        loopChamada = false;
+                        break;
+
+                    default:
+                        Console.WriteLine("Opção inválida. Digite 1 para Aceitar Chamada ou 2 para Recusar Chamada:");
+                        break;
                 }
+                Console.WriteLine("Pressione uma tecla para continuar");
+                Console.ReadKey();
             }
-            //Para a chamada
+
+            // Para a chamada
             tempoEmChamada.Stop();
 
-            //Duracao da chamada
+            // Duração da chamada
             TimeSpan duracaoDaChamada = tempoEmChamada.Elapsed;
 
             Console.WriteLine($"Duração da Chamada: {duracaoDaChamada.Hours:D2}:{duracaoDaChamada.Minutes:D2}:{duracaoDaChamada.Seconds:D2}");
@@ -475,6 +503,18 @@ namespace DesafioPOO.Models
 
             while (loopCalculadora)
             {
+                Console.Clear();
+                if (Bateria <= 0.1)
+                {
+                    Console.WriteLine("Atenção!!! A bateria está descarregando, por favor, recarregue seu Smartphone");
+                }
+
+                if (Bateria <= 0)
+                {
+                    Console.WriteLine("A bateria acabou");
+                    break;
+                }
+
                 if (CondicaoHora == 1)
                 {
                     FormatoHora = DataHoraAtual(true);
@@ -483,7 +523,7 @@ namespace DesafioPOO.Models
                 {
                     FormatoHora = DataHoraAtual(false);
                 }
-                Console.Clear();
+
                 Console.WriteLine(
                     $"{FormatoHora} {Bateria.ToString("P0")}\n" +
                     "Escolha uma operação:\n" +
@@ -578,6 +618,18 @@ namespace DesafioPOO.Models
             bool loopDataHora = true;
             while (loopDataHora)
             {
+                Console.Clear();
+                if (Bateria <= 0.1)
+                {
+                    Console.WriteLine("Atenção!!! A bateria está descarregando, por favor, recarregue seu Smartphone");
+                }
+
+                if (Bateria <= 0)
+                {
+                    Console.WriteLine("A bateria acabou");
+                    break;
+                }
+
                 if (CondicaoHora == 1)
                 {
                     FormatoHora = DataHoraAtual(true);
@@ -586,7 +638,7 @@ namespace DesafioPOO.Models
                 {
                     FormatoHora = DataHoraAtual(false);
                 }
-                Console.Clear();
+
                 Console.WriteLine(
                     $"{FormatoHora} {Bateria.ToString("P0")}\n" +
                     "Defina a exibição da Hora do seu Smartphone\n" +

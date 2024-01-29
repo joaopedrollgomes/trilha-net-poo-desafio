@@ -13,7 +13,7 @@ namespace DesafioPOO.Models
         protected string Imei;
         protected int Memoria;
         public int MemoriaAtual;
-        protected double Bateria = 0.5;
+        protected double Bateria = 0.05;
         public List<string> ListaDeAplicativos = new List<string>();
         public List<string> ListaAtualizada = new List<string>();
         public string FormatoHora;
@@ -40,7 +40,7 @@ namespace DesafioPOO.Models
                     Console.WriteLine("Atenção!!! A bateria está descarregando, por favor, recarregue seu Smartphone");
                 }
 
-                if (Bateria == 0)
+                if (Bateria <= 0)
                 {
                     Console.WriteLine("A bateria acabou");
                     break;
@@ -110,6 +110,18 @@ namespace DesafioPOO.Models
             bool subMenu = true;
             while (subMenu)
             {
+                Console.Clear();
+                if (Bateria <= 0.1)
+                {
+                    Console.WriteLine("Atenção!!! A bateria está descarregando, por favor, recarregue seu Smartphone");
+                }
+
+                if (Bateria <= 0)
+                {
+                    Console.WriteLine("A bateria acabou");
+                    break;
+                }
+
                 if (CondicaoHora == 1)
                 {
                     FormatoHora = DataHoraAtual(true);
@@ -118,7 +130,7 @@ namespace DesafioPOO.Models
                 {
                     FormatoHora = DataHoraAtual(false);
                 }
-                Console.Clear();
+
                 Console.WriteLine(
                    $"{FormatoHora} {Bateria.ToString("P0")}\n" +
                    "1- Instalar Aplicativo\n" +
@@ -154,6 +166,18 @@ namespace DesafioPOO.Models
             bool subMenu = true;
             while (subMenu)
             {
+                Console.Clear();
+                if (Bateria <= 0.1)
+                {
+                    Console.WriteLine("Atenção!!! A bateria está descarregando, por favor, recarregue seu Smartphone");
+                }
+
+                if (Bateria <= 0)
+                {
+                    Console.WriteLine("A bateria acabou");
+                    break;
+                }
+
                 if (CondicaoHora == 1)
                 {
                     FormatoHora = DataHoraAtual(true);
@@ -162,7 +186,7 @@ namespace DesafioPOO.Models
                 {
                     FormatoHora = DataHoraAtual(false);
                 }
-                Console.Clear();
+
                 Console.WriteLine($"{FormatoHora} {Bateria.ToString("P0")}");
                 Console.WriteLine(
                    $"{ListarAplicativos()}" +
@@ -199,6 +223,18 @@ namespace DesafioPOO.Models
             bool subMenu = true;
             while (subMenu)
             {
+                Console.Clear();
+                if (Bateria <= 0.1)
+                {
+                    Console.WriteLine("Atenção!!! A bateria está descarregando, por favor, recarregue seu Smartphone");
+                }
+
+                if (Bateria <= 0)
+                {
+                    Console.WriteLine("A bateria acabou");
+                    break;
+                }
+
                 if (CondicaoHora == 1)
                 {
                     FormatoHora = DataHoraAtual(true);
@@ -207,7 +243,7 @@ namespace DesafioPOO.Models
                 {
                     FormatoHora = DataHoraAtual(false);
                 }
-                Console.Clear();
+                
                 Console.WriteLine(
                     $"{FormatoHora} {Bateria.ToString("P0")}\n" +
                     "1- Informações do Smartphone\n" +

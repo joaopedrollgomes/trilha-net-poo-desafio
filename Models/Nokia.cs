@@ -25,21 +25,29 @@ namespace DesafioPOO.Models
             bool loopApp = true;
             while (loopApp)
             {
-                Console.WriteLine("Digite o nome do Aplicativo que seja instalar:");
-                string aplicativo = Console.ReadLine();
-
-                if (ListaDeAplicativos.Any(x => x.ToUpper() == aplicativo.ToUpper()))
+                if (MemoriaAtual < 50)
                 {
-                    Console.WriteLine($"O aplicativo: '{aplicativo}' já está instalado no seu SmartPhone");
+                    Console.WriteLine("O Smartphone não possui memória suficiente, por favor desinstale algum aplicativo para liberar espaço");
+                    loopApp = false;
                 }
                 else
                 {
-                    ListaDeAplicativos.Add(aplicativo);
-                    Console.WriteLine($"{aplicativo} foi instalado");
-                    AtualizarLista();
-                    Bateria -= 0.01;
-                    MemoriaAtual -= 50;
-                    loopApp = false;
+                    Console.WriteLine("Digite o nome do Aplicativo que seja instalar:");
+                    string aplicativo = Console.ReadLine();
+
+                    if (ListaDeAplicativos.Any(x => x.ToUpper() == aplicativo.ToUpper()))
+                    {
+                        Console.WriteLine($"O aplicativo: '{aplicativo}' já está instalado no seu SmartPhone");
+                    }
+                    else
+                    {
+                        ListaDeAplicativos.Add(aplicativo);
+                        Console.WriteLine($"{aplicativo} foi instalado");
+                        AtualizarLista();
+                        Bateria -= 0.01;
+                        MemoriaAtual -= 50;
+                        loopApp = false;
+                    }
                 }
             }
         }
@@ -128,10 +136,9 @@ namespace DesafioPOO.Models
             if (ListaDeAplicativos.Any())
             {
                 Console.WriteLine("Aplicativos:");
-                int count = 1;
-                foreach (string mostrarAplicativos in ListaDeAplicativos)
+                for(int contador = 1; contador < ListaDeAplicativos.Count; contador++)
                 {
-                    Console.WriteLine($"{count++} - {mostrarAplicativos}");
+                    Console.WriteLine($"{contador} - {ListaDeAplicativos[contador]}");
                 }
             }
             else
@@ -141,7 +148,7 @@ namespace DesafioPOO.Models
             return "";
         }
 
-        public override void OrdenarAplicativos()//tentei usar recurção para um menu mais interativo só que estava dando problema. Chama o metodo SubMenuAplicativo()
+        public override void OrdenarAplicativos()
         {
             //List<string> aplicativosEmOrdemAlfa = new List<string>();
 
@@ -158,7 +165,7 @@ namespace DesafioPOO.Models
             }
         }
 
-        public override void OrdenacaoPadrao()//tentei usar recurção para um menu mais interativo só que estava dando problema. Chama o metodo SubMenuAplicativo()
+        public override void OrdenacaoPadrao()
         {
             if (ListaAtualizada.Any())
             {
@@ -475,6 +482,18 @@ namespace DesafioPOO.Models
 
             while (loopCalculadora)
             {
+                Console.Clear();
+                if (Bateria <= 0.1)
+                {
+                    Console.WriteLine("Atenção!!! A bateria está descarregando, por favor, recarregue seu Smartphone");
+                }
+
+                if (Bateria <= 0)
+                {
+                    Console.WriteLine("A bateria acabou");
+                    break;
+                }
+
                 if (CondicaoHora == 1)
                 {
                     FormatoHora = DataHoraAtual(true);
@@ -483,7 +502,6 @@ namespace DesafioPOO.Models
                 {
                     FormatoHora = DataHoraAtual(false);
                 }
-                Console.Clear();
                 Console.WriteLine(
                     $"{FormatoHora} {Bateria.ToString("P0")}\n" +
                     "Escolha uma operação:\n" +
@@ -578,6 +596,18 @@ namespace DesafioPOO.Models
             bool loopDataHora = true;
             while (loopDataHora)
             {
+                Console.Clear();
+                if (Bateria <= 0.1)
+                {
+                    Console.WriteLine("Atenção!!! A bateria está descarregando, por favor, recarregue seu Smartphone");
+                }
+
+                if (Bateria <= 0)
+                {
+                    Console.WriteLine("A bateria acabou");
+                    break;
+                }
+
                 if (CondicaoHora == 1)
                 {
                     FormatoHora = DataHoraAtual(true);
@@ -586,7 +616,6 @@ namespace DesafioPOO.Models
                 {
                     FormatoHora = DataHoraAtual(false);
                 }
-                Console.Clear();
                 Console.WriteLine(
                     $"{FormatoHora} {Bateria.ToString("P0")}\n" +
                     "Defina a exibição da Hora do seu Smartphone\n" +
