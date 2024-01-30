@@ -190,7 +190,7 @@ namespace DesafioPOO.Models
             {
                 numeroDiscado = Console.ReadLine();
 
-                // Tentando converter a string em int
+                // Tentando converter a string em um numero válido
                 if (long.TryParse(numeroDiscado, out numeroDiscadoValido))
                 {
                     break;
